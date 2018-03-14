@@ -14,7 +14,7 @@ def main():
         try:
             with open(changed_file, 'r') as packer_build:
                 data = json.loads(packer_build.read())
-            p = subprocess.Popen(shlex.split("packer build {0}".format(changed_file))
+            p = subprocess.Popen(shlex.split("packer build {0}".format(changed_file)),
                                 stdout=subprocess.PIPE,
                                 stderr=subprocess.PIPE)
             out, err = p.communicate()
