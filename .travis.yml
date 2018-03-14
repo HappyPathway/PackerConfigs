@@ -4,7 +4,7 @@ python:
 
 env:
   matrix:
-  - packer_version=1.2.1
+  - packer_files=ami
 
 sudo: required
 language: bash
@@ -14,4 +14,4 @@ before_install:
 - tar xvzf chef_secrets.tgz
 
 script:
-- cd ${TRAVIS_BUILD_DIR}/; python build/packer_build.py
+- cd ${TRAVIS_BUILD_DIR}/; python build/packer_build.py --packer-dir=${packer_files}

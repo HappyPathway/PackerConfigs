@@ -6,8 +6,7 @@
     "chef_client_name": "{{env `CHEF_CLIENT_NAME` }}",
     "chef_server_url": "{{env `CHEF_SERVER_URL`}}",
     "working_dir": "{{env `PWD`}}",
-    "home_dir": "{{env `HOME`}}",
-    "service_name": ""
+    "home_dir": "{{env `HOME`}}"
   },
   "builders": [
     {
@@ -16,7 +15,13 @@
       "source_ami": "{{user `source_ami`}}",
       "instance_type": "{{user `instance_type`}}",
       "ssh_username": "ubuntu",
-      "ami_name": "{{user `service_name`}}"
+      "ami_name": "ChefServer",
+      "run_tags": {
+        "Name": "Packer-ChefServer"
+      },
+      "tags": {
+        "role": "ChefServer"
+      }
     }
   ],
   "provisioners": [
@@ -39,7 +44,7 @@
         "type": "chef-client",
         "server_url": "{{user `chef_server_url`}}",
         "chef_environment": "{{user `env`}}",
-        "run_list": "role[{{user `role`}}]",
+        "run_list": "recipe[chef_server]",
         "ssl_verify_mode": "verify_none",
         "validation_key_path": "{{user `chef_validation_key` }}",
         "validation_client_name": "{{user `chef_client_name` }}",
