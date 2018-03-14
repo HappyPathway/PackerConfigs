@@ -10,7 +10,7 @@ def main():
     	stdout=subprocess.PIPE, 
     	stderr=subprocess.PIPE)
     out, err = p.communicate()
-    for changed_file in out.splitlines()
+    for changed_file in out.splitlines():
         try:
             with open(changed_file, 'r') as packer_build:
                 data = json.loads(packer_build.read())
