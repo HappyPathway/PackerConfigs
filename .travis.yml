@@ -7,8 +7,6 @@ before_install:
 - openssl aes-256-cbc -K $encrypted_a100f140aa23_key -iv $encrypted_a100f140aa23_iv
   -in chef_secrets.tgz.enc -out chef_secrets.tgz -d
 - tar xvzf chef_secrets.tgz
-- wget https://releases.hashicorp.com/packer/${packer_version}/packer_${packer_version}_linux_amd64.zip
-  -O /tmp/packer.zip
-- sudo unzip -d /usr/local/bin/ /tmp/packer.zip
+
 script:
 - cd ${TRAVIS_BUILD_DIR}/; packer build * || exit 1
