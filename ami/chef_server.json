@@ -36,22 +36,13 @@
         ]
     },
     {
-        "type": "file",
-        "source": "{{user `home_dir`}}/.chef/encrypted_data_bag_secret",
-        "destination": "/tmp/packer-chef-client/encrypted_data_bag_secret"
-    },
-    {
         "type": "chef-client",
         "server_url": "{{user `chef_server_url`}}",
-        "chef_environment": "{{user `env`}}",
+        "chef_environment": "_default",
         "run_list": "recipe[chef_server]",
         "ssl_verify_mode": "verify_none",
         "validation_key_path": "{{user `chef_validation_key` }}",
-        "validation_client_name": "{{user `chef_client_name` }}",
-        "node_name": "{{user `role`}}-{{user `env`}}",
-        "json": {
-          "encrypted_data_bag_secret_path": "/tmp/packer-chef-client/encrypted_data_bag_secret"
-        }
+        "validation_client_name": "{{user `chef_client_name` }}"
     }
   ]
 }
