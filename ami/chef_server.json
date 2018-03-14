@@ -26,16 +26,6 @@
   ],
   "provisioners": [
     {
-        "type": "shell",
-        "inline": [
-          "sudo apt-get update",
-          "sudo apt-get install -y curl",
-          "sudo apt-get install -y python",
-          "curl -L https://www.chef.io/chef/install.sh | sudo bash",
-          "mkdir -p /tmp/packer-chef-client"
-        ]
-    },
-    {
         "type": "chef-client",
         "server_url": "{{user `chef_server_url`}}",
         "chef_environment": "_default",
