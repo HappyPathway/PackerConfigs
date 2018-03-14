@@ -1,12 +1,15 @@
 env:
   matrix:
   - packer_version=1.2.1
-  
 sudo: required
 language: bash
 before_install:
-- wget https://releases.hashicorp.com/packer/packer_${packer_version}/packer_${tf_version}_linux_amd64.zip -O /tmp/packer.zip
+- openssl aes-256-cbc -K $encrypted_a100f140aa23_key -iv $encrypted_a100f140aa23_iv
+  -in encrypted_data_bag_secret.enc -out .chef/encrypted_data_bag_secret -d
+- openssl aes-256-cbc -K $encrypted_a100f140aa23_key -iv $encrypted_a100f140aa23_iv
+  -in client.pem.enc -out .chef/client.pem -d
+- wget https://releases.hashicorp.com/packer/packer_${packer_version}/packer_${packer_version}_linux_amd64.zip
+  -O /tmp/packer.zip
 - sudo unzip -d /usr/local/bin/ /tmp/packer.zip
-
 script:
 - cd ${TRAVIS_BUILD_DIR}/; packer build * || exit 1
