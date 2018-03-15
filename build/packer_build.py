@@ -23,7 +23,7 @@ def main(opt):
                                 stderr=subprocess.PIPE)
             out, err = p.communicate()
             if p.returncode > 0:
-                errors.append(dict(file=changed_file, reason=err, msg=out))
+                errors.append(dict(file=changed_file, reason=err))
         except Exception, e:
             if changed_file.endswith(".json"):
                 errors.append(dict(file=changed_file, reason=str(e)))
