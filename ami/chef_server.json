@@ -16,7 +16,7 @@
       "source_ami": "{{user `source_ami`}}",
       "instance_type": "{{user `instance_type`}}",
       "force_deregister": true,
-      "orce_delete_snapshot": true,
+      "force_delete_snapshot": true,
       "ssh_username": "ubuntu",
       "ami_name": "ChefServer",
       "ami_groups": "all",
