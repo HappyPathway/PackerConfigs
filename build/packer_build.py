@@ -30,7 +30,10 @@ def main(opt):
             else:
                 continue
     if len(errors):
-        print errors
+        for error in errors:
+            sys.stderr.write("{0}\n".format(error.get("file")))
+            sys.stderr.write("{0}\n".format(error.get("reason")))
+            sys.stderr.write("{0}\n".format(error.get("message")))
         sys.stderr.write("Could not parse or build these files...\n")
         #sys.stderr.write("\n".join(json.dumps(errors, separators=(',', ':'), indent=4, sort_keys=True)))
         sys.exit(1)
