@@ -18,12 +18,10 @@ def main(opt):
         try:
             with open(changed_file, 'r') as packer_build:
                 data = json.loads(packer_build.read())
-            p = subprocess.Popen(shlex.split("packer build {0}".format(changed_file)),
-                                stdout=subprocess.PIPE,
-                                stderr=subprocess.PIPE)
-            out, err = p.communicate()
-            if p.returncode > 0:
-                errors.append(dict(file=changed_file, reason=str(err), message=str(out)))
+            exit_code = os.system("packer build {0} 2>/tmp/{0}".format(changed_file))
+            if exit_code > 0:
+                with open("/tmp/{0}".format(changed_file)) as errors:
+                    errors.append(dict(file=changed_file, reason=str(errors.read())))
         except Exception, e:
             if changed_file.endswith(".json"):
                 errors.append(dict(file=changed_file, reason=str(e)))
