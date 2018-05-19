@@ -18,7 +18,7 @@ def main(opt):
         try:
             with open(changed_file, 'r') as packer_build:
                 data = json.loads(packer_build.read())
-            exit_code = os.system("packer build {0} 2>/tmp/{0}".format(changed_file))
+            exit_code = os.system("packer build {0} 2>/tmp/{1}".format(changed_file, os.path.basename(changed_file)))
             if exit_code > 0:
                 with open("/tmp/{0}".format(changed_file)) as errors:
                     errors.append(dict(file=changed_file, reason=str(errors.read())))
