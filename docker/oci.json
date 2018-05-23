@@ -1,0 +1,46 @@
+{
+    "variables": {
+        "region": "phx",
+        "tenancy": "",
+        "username": "",
+        "registry": "",
+        "repo": "",
+        "tag": "",
+        "ansible_playbook": ""
+    },
+    "builders" :[
+        {
+            "type": "docker",
+            "image": "ubuntu",
+            "commit": true
+          }
+    ],
+    "provisioners": [
+        {
+            "type": "shell",
+            "inline": [
+                "apt-get update"
+            ]
+        },
+        {
+            "type": "ansible",
+            "playbook_file": "{{ user `ansible_playbook`}}"
+        }
+    ],
+    "post-processors": [
+        [
+            {
+                "type": "docker-tag",
+                "repository": "{{ user `region`}}.ocir.io/{{ user `tenancy`}}/{{ user `registry` }}/{{ user `repo`}}",
+                "tag": "{{ user `tag`}}"
+            },
+            {
+                "type": "docker-push",
+                "login": true,
+                "login_server": "{{ user `region`}}.ocir.io",
+                "login_username": "{{ user `tenancy`}}/{{ user `username`}}",
+                "login_password": "{{ user `password`}}"
+            }
+        ]
+    ]
+}
